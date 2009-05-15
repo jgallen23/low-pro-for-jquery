@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+
+		<script type="text/javascript" src="../jquery.js"></script>
+		<script type="text/javascript" src="../../src/lowpro.jquery.js"></script>
+		<script type="text/javascript">
+			var images = [
+				'http://www.filebuzz.com/software_screenshot/full/19737-Majestic_Waterfalls_Screensaver.jpg',
+				'http://www.cuti.com.my/Sub/Johor/johor_kota_tinggi_waterfalls.jpg',
+				'http://blog.howdesign.com/content/binary/plitvicka-waterfalls.jpg'
+			];
+			(function($) {
+				$.lowpro("PhotoSlider", {
+					initialize: function(options) {
+						this.options.total = this.options.images.length;
+						this.showPhoto();
+					},
+					onmouseover: $.delegate({
+						'img': function() { console.log("image"); }
+					}),
+					onclick: $.delegate({
+						'.next': function() {
+							this.nextPhoto();
+						},
+						'.prev': function() {
+							this.prevPhoto();
+						}
+					}),
+					showPhoto: function() {
+						var imgPath = this.options.images[this.options.index];
+						var img = new Image();
+						var self = this;
+						$(img).load(function() {
+							var h = img.height + 30;
+							var w = img.width;
+							self.element.find(".img").fadeOut(function() {
+								self.element.animate({ height: h }, 'fast', function() { 
+									self.element.find(".nav").height(h).css("lineHeight", h+"px");
+									self.element.find(".img").html(img).hide().fadeIn();
+									self.updateNav();
+								});
+							});
+						});
+						img.src = imgPath;
+					},
+					nextPhoto: function() {
+						if (this.options.index < this.options.total - 1) {
+							this.options.index++;
+							this.showPhoto();
+						}
+					},
+					prevPhoto: function() {
+						if (this.options.index != 0) {
+							this.options.index--;
+							this.showPhoto();
+						}
+					},
+					updateNav: function() {
+						this.element.find(".next").fadeTo("slow", (this.options.index == this.options.total -1)?0.3:1.0);
+						this.element.find(".prev").fadeTo("slow", (this.options.index == 0)?0.3:1.0);
+					}
+				});
+				$.lp.PhotoSlider.defaults = {
+					images: [],
+					index: 0
+				}
+
+			}(jQuery))
+			jQuery(function($) {
+				$(".photoSlider").attachAndReturn($.lp.PhotoSlider, { images: images });
+			});
+		</script>
+		<style type="text/css">
+			.photoSlider { width: 700px; border: 1px solid #ccc; }
+				.photoSlider .img { float: left; text-align: center; width: 650px; padding: 15px 0; }
+				.photoSlider .nav { width: 25px; text-align: center; }
+				.photoSlider .prev { float: left; }
+				.photoSlider .next { float: right; }
+		</style>
+	</head>
+	<body>
+		<div class="photoSlider">
+			<a href="#" class="prev nav">&laquo;</a>
+			<div class="img"></div>
+			<a href="#" class="next nav">&raquo;</a>
+		</div>
+	</body>
+</html>
