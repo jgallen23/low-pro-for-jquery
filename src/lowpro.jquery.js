@@ -107,8 +107,8 @@
     return $.klass(behavior, {
       initialize: function($super, element, args) {
         this.element = $(element);
-        if (args && args.length != 0 && typeof(args[0]) == "object" && $.lp[this._name].defaults) {
-          this.options = $.extend({}, $.lp[this._name].defaults, args[0]);
+        if ($.lp[this._name].defaults) {
+          this.options = $.extend({}, $.lp[this._name].defaults, (args && args.length != 0 && typeof(args[0]) == "object")?args[0]:{});
         }
         if ($super) $super.apply(this, args);
       }
