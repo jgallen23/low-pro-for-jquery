@@ -40,6 +40,19 @@ $('a').attachAndReturn(Clicky, 45) //=> Array of behavior instances
 Aside from this everything works the same as Low Pro for Prototype.
 See http://www.danwebb.net/lowpro for details.
 
+!!New Syntax!!
+-------------
+Testy = $.lowpro("Testy", {
+ initialize: function() {
+   alert(this.options.woot);
+ },
+ onclick: function() {
+   alert('ive been clicked');
+ }
+});
+$.lp.Testy.defaults = { woot: "wahoo!" }
+
+$('p').attach(Testy, { woot: "pwned" }
 
 
 Livequery support
