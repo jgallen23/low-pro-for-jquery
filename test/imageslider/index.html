@@ -12,7 +12,7 @@
 				'http://blog.howdesign.com/content/binary/plitvicka-waterfalls.jpg'
 			];
 			(function($) {
-				$.lowpro("PhotoSlider", {
+				$.ux.behavior("PhotoSlider", {
 					initialize: function(options) {
 						this.options.total = this.options.images.length;
 						this.showPhoto();
@@ -62,14 +62,14 @@
 						this.element.find(".prev").fadeTo("slow", (this.options.index == 0)?0.3:1.0);
 					}
 				});
-				$.lp.PhotoSlider.defaults = {
+				$.ux.PhotoSlider.defaults = {
 					images: [],
 					index: 0
 				}
 
 			}(jQuery))
 			jQuery(function($) {
-				$(".photoSlider").attachAndReturn($.lp.PhotoSlider, { images: images });
+				$(".photoSlider").attachAndReturn($.ux.PhotoSlider, { images: images });
 			});
 		</script>
 		<style type="text/css">
