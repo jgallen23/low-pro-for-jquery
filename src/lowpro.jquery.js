@@ -89,9 +89,12 @@
       }
     },
     lp: {},
-    lowpro: function(name, obj) {
+    lowpro: function() {
+      var args = $.makeArray(arguments), name = args.shift(), parent = null;
+	  if (typeof(args[0]) == "string") parent = args.shift();
+	  var obj = args[0];
       obj["_name"] = name;
-      $.lp[name] = $.klass(obj);
+      $.lp[name] = (parent)?$.klass($.lp[parent], obj):$.klass(obj);
     }
   });
 
@@ -107,9 +110,12 @@
     return $.klass(behavior, {
       initialize: function($super, element, args) {
         this.element = $(element);
-        if ($.lp[this._name].defaults) {
-          this.options = $.extend({}, $.lp[this._name].defaults, (args && args.length != 0 && typeof(args[0]) == "object")?args[0]:{});
-        }
+		this.options = behavior.defaults || {};
+		if (behavior.superclass && behavior.superclass.defaults) {
+			this.options = $.extend({}, behavior.superclass.defaults, this.options);
+		}
+        $.extend(this.options, (args && args.length != 0 && typeof(args[0]) == "object")?args[0]:{});
+
         if ($super) $super.apply(this, args);
       }
     });
@@ -144,7 +150,6 @@
     },
     attachAndReturn: function() {
       var args = $.makeArray(arguments), behavior = args.shift();
-
       return $.map(this, function(el) {
         return attachBehavior(el, behavior, args);
       });

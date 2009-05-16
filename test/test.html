@@ -8,9 +8,11 @@
 	<script src="jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script src="livequery.jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/lowpro.jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/remote.jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 	 Man = $.klass({
 	   initialize: function(a) {
+	     console.log("man");
 	     this.a = a;
 	   },
 	   test: function() {
@@ -19,6 +21,10 @@
 	 });
 	 
 	 Dan = $.klass(Man, {
+	   initialize: function($super) {
+	    $super();
+		console.log("dan");
+	   },
 	   test: function($super) {
 	     $super();
 	     console.log('bitch!');
@@ -35,9 +41,10 @@
  	     '#yeah': function() { console.log(this, arguments) }
  	   })
 	 })
-	 
+	var d = {};
 	 jQuery(function($) {
 	   $('#thing').attach(Clicky, 56);
+	   d.dan = $("a").attachAndReturn(Dan, "woot")[0];
 	   $('a').attach(Remote);
 	   $('form').attach(Remote);
 	 });
