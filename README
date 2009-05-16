@@ -42,7 +42,7 @@ See http://www.danwebb.net/lowpro for details.
 
 !!New Syntax!!
 -------------
-Testy = $.lowpro("Testy", {
+$.ux.behavior("Testy", {
  initialize: function() {
    alert(this.options.woot);
  },
@@ -50,7 +50,7 @@ Testy = $.lowpro("Testy", {
    alert('ive been clicked');
  }
 });
-$.lp.Testy.defaults = { woot: "wahoo!" }
+$.ux.Testy.defaults = { woot: "wahoo!" }
 
 $('p').attach(Testy, { woot: "pwned" })
 

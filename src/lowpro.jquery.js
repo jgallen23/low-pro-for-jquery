@@ -88,14 +88,15 @@
         }
       }
     },
-    lp: {},
-    lowpro: function() {
-      var args = $.makeArray(arguments), name = args.shift(), parent = null;
-	  if (typeof(args[0]) == "string") parent = args.shift();
-	  var obj = args[0];
-      obj["_name"] = name;
-      $.lp[name] = (parent)?$.klass($.lp[parent], obj):$.klass(obj);
-    }
+    ux: {
+		behavior: function() {
+		  var args = $.makeArray(arguments), name = args.shift(), parent = null;
+		  if (typeof(args[0]) == "string") parent = args.shift();
+		  var obj = args[0];
+		  obj["_name"] = name;
+		  this[name] = (parent)?$.klass(this[parent], obj):$.klass(obj);
+		}
+	}
   });
 
   var bindEvents = function(instance) {

@@ -9,7 +9,7 @@
 	<script src="jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/lowpro.jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
-		$.lowpro("Base", {
+		$.ux.behavior("Base", {
 			initialize: function() {
 				console.log("base");
 				console.log(this);
@@ -22,9 +22,9 @@
 				console.log("abc");
 			}
 		});
-		$.lp.Base.defaults = { "text": "yep" }
+		$.ux.Base.defaults = { "text": "yep", "text2": 123 }
 	 
-		$.lowpro("Linky", "Base", {
+		$.ux.behavior("Linky", "Base", {
 			initialize: function($super) {
 				$super();
 				console.log(this);
@@ -36,13 +36,16 @@
 			test: function($super) {
 				$super();
 				console.log('bitch!');
+			},
+			onclick: function() {
+				console.log(this.options.text2);
 			}
 		});
-		$.lp.Linky.defaults = { "text": "nope" }
+		$.ux.Linky.defaults = { "text": "nope" }
 	 
 		var d = {}; 
 			jQuery(function($) {
-			d.linky = $('a').attachAndReturn($.lp.Linky, { text: 1 })[0];
+			d.linky = $('a').attachAndReturn($.ux.Linky, { text: 1 })[0];
 			console.log(d.linky);
 		});
 	</script>
