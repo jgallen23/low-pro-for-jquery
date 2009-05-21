@@ -61,15 +61,16 @@
 						this.element.find(".next").fadeTo("slow", (this.options.index == this.options.total -1)?0.3:1.0);
 						this.element.find(".prev").fadeTo("slow", (this.options.index == 0)?0.3:1.0);
 					}
-				});
-				$.ux.PhotoSlider.defaults = {
+				}, {
 					images: [],
 					index: 0
-				}
+				});
 
 			}(jQuery))
+			var d = {};
+			$.ux.PhotoSlider.defaults.index = 1;
 			jQuery(function($) {
-				$(".photoSlider").attachAndReturn($.ux.PhotoSlider, { images: images });
+				d.slider = $(".photoSlider").attachAndReturn($.ux.PhotoSlider, { images: images });
 			});
 		</script>
 		<style type="text/css">
@@ -81,6 +82,11 @@
 		</style>
 	</head>
 	<body>
+		<div class="photoSlider">
+			<a href="#" class="prev nav">&laquo;</a>
+			<div class="img"></div>
+			<a href="#" class="next nav">&raquo;</a>
+		</div>
 		<div class="photoSlider">
 			<a href="#" class="prev nav">&laquo;</a>
 			<div class="img"></div>
