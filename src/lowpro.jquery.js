@@ -93,8 +93,10 @@
 		  var args = $.makeArray(arguments), name = args.shift(), parent = null;
 		  if (typeof(args[0]) == "string") parent = args.shift();
 		  var obj = args[0];
+		  var defaults = (args.length > 1 && typeof(args[1]) === "object")?args[1]:{};
 		  obj["_name"] = name;
 		  this[name] = (parent)?$.klass(this[parent], obj):$.klass(obj);
+		  this[name].defaults = defaults;
 		}
 	}
   });
@@ -111,7 +113,7 @@
     return $.klass(behavior, {
       initialize: function($super, element, args) {
         this.element = $(element);
-		this.options = behavior.defaults || {};
+		this.options = (behavior.defaults)?$.extend({}, behavior.defaults):{};
 		if (behavior.superclass && behavior.superclass.defaults) {
 			this.options = $.extend({}, behavior.superclass.defaults, this.options);
 		}
