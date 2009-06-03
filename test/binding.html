@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="../src/lowpro.jquery.js"></script>
+		<script type="text/javascript">
+			$.ux.behavior("inputBind", {
+				initialize: function() {
+					console.log(this.options);
+				},
+				woot: function() {
+					console.log("woot");
+				},
+				onkeydown: $.delegate({ 
+					"input": function(element, event) {
+						console.log("keydown");
+						if (event.keyCode == 13)
+							this.dispatchEvent("enter", "yep");
+					}
+				}),
+				onmouseoverr: $.delegate({ 
+					"input": function() {
+						console.log("mouseover");
+					}
+				}),
+				onfocus: $.delegate({
+					"input": function() {
+						console.log("blur");
+					}
+				}),
+				onblur: $.delegate({
+					"input": function() {
+						console.log("blur");
+					}
+				})
+			});
+			$(function() {
+					$("div").attach("inputBind", { onenter: function(arg) { console.log("enter was pressed " + arg); }});
+			});
+		</script>
+	</head>
+	<body>
+		<div>	
+			<input type="text"/>
+		</div>
+
+	</body>
+</html>
