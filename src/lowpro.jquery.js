@@ -97,14 +97,9 @@
 				obj["_name"] = name;
 				this[name] = (parent)?$.klass(this[parent], obj):$.klass(obj);
 				this[name].defaults = defaults;
-				//$.fn.extend({ ""+name+"": executeMethod });
 			}
 		}
 	});
-
-	var executeMethod = function() {
-		console.log(arguments);
-	}
 
 	var bindEvents = function(instance) {
 		for (var member in instance) {
@@ -128,8 +123,9 @@
 			},
 			dispatchEvent: function() {
 				var args = $.makeArray(arguments), event = "on"+args.shift();
-				if (this.options[event])
-					this.options[event](args);
+				if (this.options[event]) {
+					this.options[event].apply(this, args);
+				}
 			}
 		});
 	}
@@ -193,10 +189,9 @@
 			var args = $.makeArray(arguments), behavior = args.shift(), method = args.shift();
 			var behaviors = this.attached(behavior);
 			$.each(behaviors, function(i, behavior) {
-				console.log(behavior);
-				behavior[method](args);
+				behavior[method].apply(behavior, args);
 			});
-
+			return this;
 		}
 	});
 
