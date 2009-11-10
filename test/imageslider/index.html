@@ -68,9 +68,9 @@
 
 			}(jQuery))
 			var d = {};
-			$.ux.PhotoSlider.defaults.index = 1;
+			//$.ux.PhotoSlider.defaults.index = 1;
 			jQuery(function($) {
-				d.slider = $(".photoSlider").attachAndReturn($.ux.PhotoSlider, { images: images });
+				d.slider = $(".photoSlider").attachAndReturn("PhotoSlider", { images: images });
 			});
 		</script>
 		<style type="text/css">

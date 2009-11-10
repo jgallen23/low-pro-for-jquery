@@ -158,6 +158,9 @@
 				});
 			}
 		},
+		attachAndReturnFirst: function() {
+			return this.attachAndReturn.apply(this, arguments)[0];
+		},
 		attachAndReturn: function() {
 			var args = $.makeArray(arguments), behavior = args.shift();
 			return $.map(this, function(el) {

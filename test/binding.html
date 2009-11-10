@@ -33,8 +33,9 @@
 					}
 				})
 			});
+			var d = {};
 			$(function() {
-					$("div").attach("inputBind", { onenter: function(arg) { console.log("enter was pressed " + arg); }});
+				d.c = $("div").attachAndReturnFirst("inputBind", { onenter: function(arg) { console.log("enter was pressed " + arg); }});
 			});
 		</script>
 	</head>
