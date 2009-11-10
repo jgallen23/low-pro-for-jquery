@@ -101,6 +101,13 @@
 		}
 	});
 
+	var parseAutoSelectors = function(behavior) {
+		behavior.elements = {};
+		for (var key in behavior.options.elements) {
+			behavior.elements[key] = $(behavior.options.elements[key], behavior.element);
+		}
+	}
+
 	var bindEvents = function(instance) {
 		for (var member in instance) {
 			if (member.match(/^on(.+)/) && typeof instance[member] == 'function') {
@@ -119,6 +126,7 @@
 				}
 				$.extend(this.options, (args && args.length != 0 && typeof(args[0]) == "object")?args[0]:{});
 
+				parseAutoSelectors(this);
 				if ($super) $super.apply(this, args);
 			},
 			dispatchEvent: function() {
