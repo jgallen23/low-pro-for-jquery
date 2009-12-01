@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<title></title>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="../src/lowpro.jquery.js"></script>
+		<script type="text/javascript">
+			$.ux.behavior("TestAutoSelectors", {
+				initialize: function() {
+					console.log(this.options);
+					console.log(this.elements);
+				},
+				test: function() {
+					console.log("test");
+				}
+			}, {
+				elements: {
+					'text': 'span',
+					'text2': 'div.woot'
+				}
+			})
+			var d = {};
+			$(function() {
+				$("#Content").attach("TestAutoSelectors");
+				//$("#Content").ux().test()
+				$("#Content").uxTestAutoSelectors().test();
+			});
+		</script>
+	</head>
+	<body>
+		<div id="Content">
+			<span>Text</span>
+			<div class="woot">Text 2</div>
+		</div>
+	</body>
+</html>
+

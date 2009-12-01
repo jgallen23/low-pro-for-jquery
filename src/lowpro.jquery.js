@@ -97,6 +97,10 @@
 				obj["_name"] = name;
 				this[name] = (parent)?$.klass(this[parent], obj):$.klass(obj);
 				this[name].defaults = defaults;
+				var self = this;
+				$.fn["ux"+name] = function() {
+					return this.firstAttached(name);
+				};
 			}
 		}
 	});
@@ -120,6 +124,7 @@
 		return $.klass(behavior, {
 			initialize: function($super, element, args) {
 				this.element = $(element);
+				/*this.element.data("behaviors", []);*/
 				this.options = (behavior.defaults)?$.extend({}, behavior.defaults):{};
 				if (behavior.superclass && behavior.superclass.defaults) {
 					this.options = $.extend({}, behavior.superclass.defaults, this.options);
@@ -196,13 +201,18 @@
 		firstAttached: function(behavior) {
 			return this.attached(behavior)[0];
 		},
-		ux: function() {
+		uxMethod: function() {
 			var args = $.makeArray(arguments), behavior = args.shift(), method = args.shift();
 			var behaviors = this.attached(behavior);
 			$.each(behaviors, function(i, behavior) {
 				behavior[method].apply(behavior, args);
 			});
 			return this;
+		},
+		ux: function() {
+			console.log(this);
+			var behaviors = this.attached(this);
+			console.log(behaviors);
 		}
 	});
 
