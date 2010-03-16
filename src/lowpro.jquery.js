@@ -77,6 +77,17 @@
 
 			return klass;
 		},
+		delegate: function(rules) {
+			return function(e) {
+				var target = $(e.target), parent = null;
+				for (var selector in rules) {
+					if (target.is(selector) || ((parent = target.parents(selector)) && parent.length > 0)) {
+						return rules[selector].apply(this, [parent || target].concat($.makeArray(arguments)));
+					}
+					parent = null;
+				}
+			}
+		},
 		ux: {
 			behavior: function() {
 				var args = $.makeArray(arguments), name = args.shift(), parent = null;
