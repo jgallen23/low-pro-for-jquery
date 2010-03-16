@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
 		<script type="text/javascript" src="../src/lowpro.jquery.js"></script>
 		<script type="text/javascript">
 			$.ux.behavior("inputBind", {
@@ -10,28 +10,28 @@
 				woot: function() {
 					console.log("woot");
 				},
-				onkeydown: $.delegate({ 
+				onkeydown: { 
 					"input": function(element, event) {
 						console.log("keydown");
 						if (event.keyCode == 13)
 							this.dispatchEvent("enter", "yep");
 					}
-				}),
-				onmouseoverr: $.delegate({ 
+				},
+				onmouseover: { 
 					"input": function() {
 						console.log("mouseover");
 					}
-				}),
-				onfocus: $.delegate({
+				},
+				onfocus: {
+					"input": function() {
+						console.log("focus");
+					}
+				},
+				onblur: {
 					"input": function() {
 						console.log("blur");
 					}
-				}),
-				onblur: $.delegate({
-					"input": function() {
-						console.log("blur");
-					}
-				})
+				}
 			});
 			var d = {};
 			$(function() {
