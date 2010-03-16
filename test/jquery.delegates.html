@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Low Pro JQ</title>
+	<script src="jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/lowpro.jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		(function($) {
+			$.ux.behavior("TestWidget", {
+				initialize: function() {
+				},
+				onclick: {
+					'.jsClickMe': function(element, event) {
+						console.log(arguments);
+						console.log("click");
+					},
+					'.jsClickMe2': function(element, event) {
+						console.log(arguments);
+						console.log("click2");
+					},
+					'.jsClickMe3': function(element, event) {
+						console.log(arguments);
+						console.log("click3");
+					}
+				}
+			}, {
+			});
+		})(jQuery);
+
+
+		var d = {};
+		jQuery(function($) {
+			$("#widget").attach("TestWidget");
+		});
+	</script>
+</head>
+<body>
+
+	<div id="widget">
+		<a href="#" class="jsClickMe">Click Me</a>
+		<a href="#" class="jsClickMe2">Click Me2</a>
+		<a href="#" class="jsClickMe3">Click Me3</a>
+	</div>
+</body>
+</html>
+

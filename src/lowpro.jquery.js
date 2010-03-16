@@ -77,17 +77,6 @@
 
 			return klass;
 		},
-		delegate: function(rules) {
-			return function(e) {
-				var target = $(e.target), parent = null;
-				for (var selector in rules) {
-					if (target.is(selector) || ((parent = target.parents(selector)) && parent.length > 0)) {
-						return rules[selector].apply(this, [parent || target].concat($.makeArray(arguments)));
-					}
-					parent = null;
-				}
-			}
-		},
 		ux: {
 			behavior: function() {
 				var args = $.makeArray(arguments), name = args.shift(), parent = null;
@@ -114,8 +103,19 @@
 
 	var bindEvents = function(instance) {
 		for (var member in instance) {
-			if (member.match(/^on(.+)/) && typeof instance[member] == 'function') {
-				instance.element.bind(RegExp.$1, $.bind(instance[member], instance));
+			if (member.match(/^on(.+)/)) {
+				if (typeof instance[member] == 'function') {
+					instance.element.bind(RegExp.$1, $.bind(instance[member], instance));
+				} else {
+					var rules = instance[member];
+					var eventName = RegExp.$1;
+					for (var rule in rules) {
+						var f = function(r, func) {
+							instance.element.delegate(r, eventName, function(e) { func(instance, e) });
+						}
+						f(rule, rules[rule]);
+					}
+				}
 			}
 		}
 	}
@@ -180,7 +180,7 @@
 				return attachBehavior(el, behavior, args);
 			});
 		},
-		delegate: function(type, rules) {
+		delegate2: function(type, rules) {
 			return this.bind(type, $.delegate(rules));
 		},
 		attached: function(behavior) {
