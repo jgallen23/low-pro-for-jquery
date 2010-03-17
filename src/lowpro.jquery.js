@@ -122,7 +122,7 @@
 					var eventName = RegExp.$1;
 					for (var rule in rules) {
 						var f = function(r, func) {
-							instance.element.delegate(r, eventName, function(e) { func(instance, e) });
+							instance.element.delegate(r, eventName, function(e) { func.call(instance, $(e.target), e) });
 						}
 						f(rule, rules[rule]);
 					}
